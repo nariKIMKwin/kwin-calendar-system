@@ -5,6 +5,7 @@
 body {
     margin: 0;
     font-family: "Malgun Gothic", Arial, sans-serif;
+<<<<<<< HEAD
     background: #f4f6f8;
     color: #222;
 }
@@ -16,6 +17,20 @@ body {
     grid-template-columns: 240px 1fr 320px;
     align-items: center;
     border-bottom: 1px solid #ddd;
+=======
+    background: #0f1724;
+    color: #f1f3f5;
+}
+
+/* 상단 헤더 */
+.top-header {
+    height: 86px;
+    background: linear-gradient(90deg, #0b1320, #152238);
+    display: grid;
+    grid-template-columns: 240px 1fr 320px;
+    align-items: center;
+    border-bottom: 1px solid #24344f;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     padding: 0 24px;
 }
 
@@ -35,6 +50,11 @@ body {
     font-size: 34px;
     margin: 0;
     font-weight: 800;
+<<<<<<< HEAD
+=======
+    color: #f8f9fa;
+    letter-spacing: 1px;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 }
 
 .right-area {
@@ -44,14 +64,23 @@ body {
     gap: 8px;
 }
 
+<<<<<<< HEAD
+=======
+/* 툴바 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .toolbar {
     height: 74px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
     padding: 0 24px;
+<<<<<<< HEAD
     background: #ffffff;
     border-bottom: 1px solid #ddd;
+=======
+    background: #162033;
+    border-bottom: 1px solid #24344f;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 }
 
 .toolbar-left {
@@ -66,13 +95,21 @@ body {
     text-align: center;
     font-size: 25px;
     font-weight: 800;
+<<<<<<< HEAD
 }
 
+=======
+    color: #f8f9fa;
+}
+
+/* 버튼 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 button {
     border: none;
     padding: 11px 15px;
     margin: 2px;
     border-radius: 10px;
+<<<<<<< HEAD
     background: #e9edf2;
     cursor: pointer;
     font-size: 14px;
@@ -85,11 +122,28 @@ button:hover {
 
 button.active {
     background: #26384d;
+=======
+    background: #273449;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    color: #f1f3f5;
+    transition: 0.15s;
+}
+
+button:hover {
+    background: #324766;
+}
+
+button.active {
+    background: #1d75d8;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     color: white;
 }
 
 .add-btn,
 .project-btn {
+<<<<<<< HEAD
     background: #495057;
     color: white;
 }
@@ -98,19 +152,39 @@ button.active {
     background: #1d75d8;
 }
 
+=======
+    background: #273449;
+    color: white;
+}
+
+.add-btn:hover,
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .project-btn:hover {
     background: #1d75d8;
 }
 
+<<<<<<< HEAD
+=======
+/* 메인 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 main {
     padding: 20px 24px;
 }
 
+<<<<<<< HEAD
 .calendar {
     background: white;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+=======
+/* 달력 */
+.calendar {
+    background: #162033;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 }
 
 .week-header,
@@ -122,18 +196,30 @@ main {
 .week-header div {
     padding: 14px;
     text-align: center;
+<<<<<<< HEAD
     background: #26384d;
     color: white;
+=======
+    background: #0b1320;
+    color: #f8f9fa;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     font-size: 18px;
     font-weight: 800;
 }
 
 .day-cell {
     min-height: 138px;
+<<<<<<< HEAD
     border-right: 1px solid #e1e4e8;
     border-bottom: 1px solid #e1e4e8;
     padding: 8px;
     background: #fff;
+=======
+    border-right: 1px solid #24344f;
+    border-bottom: 1px solid #24344f;
+    padding: 8px;
+    background: #162033;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     position: relative;
     overflow-y: auto;
 }
@@ -150,6 +236,7 @@ main {
     font-size: 17px;
     font-weight: 800;
     margin-bottom: 6px;
+<<<<<<< HEAD
 }
 
 .other-month {
@@ -162,6 +249,22 @@ main {
     outline-offset: -4px;
 }
 
+=======
+    color: #f1f3f5;
+}
+
+.other-month {
+    background: #111927;
+    color: #607089;
+}
+
+.today {
+    border: 3px solid #1d75d8;
+    background: #1a2a42;
+}
+
+/* 일정 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .event-item {
     padding: 7px 8px;
     border-radius: 8px;
@@ -188,23 +291,42 @@ main {
     text-overflow: ellipsis;
 }
 
+<<<<<<< HEAD
 .planned-bg { background: #7b8794; }
+=======
+/* 일정 상태 */
+.planned-bg { background: #5f6b7a; }
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .progress-bg { background: #1d75d8; }
 .done-bg { background: #2e9d55; }
 .delay-bg { background: #d93025; }
 .notice-bg { background: #f59f00; }
+<<<<<<< HEAD
 .family-bg { background: #d63384; }
 
 .legend {
     height: 52px;
     background: white;
     border-top: 1px solid #ddd;
+=======
+.family-bg { background: #9c36d6; }
+
+/* 범례 */
+.legend {
+    height: 52px;
+    background: #0b1320;
+    border-top: 1px solid #24344f;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     display: flex;
     align-items: center;
     gap: 22px;
     padding: 0 28px;
     font-size: 16px;
     font-weight: 700;
+<<<<<<< HEAD
+=======
+    color: #f1f3f5;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 }
 
 .dot {
@@ -216,18 +338,32 @@ main {
     vertical-align: middle;
 }
 
+<<<<<<< HEAD
 .dot.planned { background: #7b8794; }
+=======
+.dot.planned { background: #5f6b7a; }
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .dot.progress { background: #1d75d8; }
 .dot.done { background: #2e9d55; }
 .dot.delay { background: #d93025; }
 .dot.notice { background: #f59f00; }
+<<<<<<< HEAD
 .dot.family { background: #d63384; }
 
+=======
+.dot.family { background: #9c36d6; }
+
+/* 모달 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .modal {
     display: none;
     position: fixed;
     inset: 0;
+<<<<<<< HEAD
     background: rgba(0,0,0,0.45);
+=======
+    background: rgba(0,0,0,0.6);
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     align-items: center;
     justify-content: center;
     z-index: 999;
@@ -241,10 +377,22 @@ main {
     width: 480px;
     max-height: 90vh;
     overflow-y: auto;
+<<<<<<< HEAD
     background: white;
     border-radius: 18px;
     padding: 24px;
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+=======
+    background: #162033;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+    color: #f1f3f5;
+}
+
+#eventModal .modal-box {
+    width: 760px;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 }
 
 .modal-box h2 {
@@ -255,29 +403,48 @@ main {
 .modal-box label {
     display: block;
     font-weight: 800;
+<<<<<<< HEAD
     margin-top: 12px;
     margin-bottom: 5px;
 }
 
 
+=======
+    margin-bottom: 5px;
+}
+
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .modal-box input,
 .modal-box select,
 .modal-box textarea {
     width: 100%;
     padding: 11px;
+<<<<<<< HEAD
     border: 1px solid #ccc;
+=======
+    border: 1px solid #324766;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     border-radius: 8px;
 
     font-family: "Malgun Gothic", Arial, sans-serif;
     font-size: 14px;
     font-weight: 600;
 
+<<<<<<< HEAD
     background: white;
     color: #222;
 }
 
 .modal-box textarea {
     height: 80px;
+=======
+    background: #0f1724;
+    color: #f1f3f5;
+}
+
+.modal-box textarea {
+    height: 90px;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     resize: none;
 }
 
@@ -291,7 +458,11 @@ main {
 #saveEventBtn,
 #saveProjectBtn,
 .delete-btn {
+<<<<<<< HEAD
     background: #495057;
+=======
+    background: #273449;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     color: white;
 }
 
@@ -304,6 +475,10 @@ main {
     background: #d93025;
 }
 
+<<<<<<< HEAD
+=======
+/* 프로젝트 관리 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .project-header {
     display: flex;
     justify-content: space-between;
@@ -314,6 +489,7 @@ main {
 .project-header h2 {
     margin: 0;
     font-size: 30px;
+<<<<<<< HEAD
 }
 
 .project-table-wrap {
@@ -321,6 +497,16 @@ main {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+=======
+    color: #f8f9fa;
+}
+
+.project-table-wrap {
+    background: #162033;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 }
 
 .project-table {
@@ -329,19 +515,28 @@ main {
 }
 
 .project-table thead {
+<<<<<<< HEAD
     background: #26384d;
+=======
+    background: #0b1320;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     color: white;
 }
 
 .project-table th {
     padding: 16px 10px;
     font-size: 15px;
+<<<<<<< HEAD
     background: #26384d;
+=======
+    background: #0b1320;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     color: white;
 }
 
 .project-table td {
     padding: 14px 10px;
+<<<<<<< HEAD
     border-bottom: 1px solid #e5e5e5;
     text-align: center;
     font-size: 14px;
@@ -351,6 +546,20 @@ main {
     background: #f7f9fc;
 }
 
+=======
+    border-bottom: 1px solid #24344f;
+    text-align: center;
+    font-size: 14px;
+    background: #162033;
+    color: #f1f3f5;
+}
+
+.project-table tbody tr:hover {
+    background: #1d2d46;
+}
+
+/* 정렬 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .sortable {
     cursor: pointer;
     user-select: none;
@@ -360,20 +569,29 @@ main {
     background: #1d2c3f;
 }
 
+<<<<<<< HEAD
+=======
+/* 수정 삭제 버튼 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .table-btn {
     padding: 8px 12px;
     font-size: 13px;
     border-radius: 8px;
+<<<<<<< HEAD
     background: #495057;
     color: white;
 }
 
 .edit-btn {
     background: #b5b7ba;
+=======
+    background: #273449;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     color: white;
 }
 
 .edit-btn:hover {
+<<<<<<< HEAD
     background: #495057;
 }
 
@@ -392,16 +610,40 @@ main {
 
 .saturday {
     color: #1d75d8;
+=======
+    background: #1d75d8;
+}
+
+.remove-btn:hover {
+    background: #d93025;
+}
+
+/* 공휴일 */
+.sunday {
+    color: #ff5c5c;
+}
+
+.saturday {
+    color: #4ea1ff;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 }
 
 .holiday-name {
     font-size: 11px;
     font-weight: 800;
+<<<<<<< HEAD
     color: #d93025;
+=======
+    color: #ff5c5c;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
     margin-top: -4px;
     margin-bottom: 4px;
 }
 
+<<<<<<< HEAD
+=======
+/* 일정 입력 레이아웃 */
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 .form-row {
     display: flex;
     gap: 12px;
@@ -424,6 +666,7 @@ main {
     display: block;
     font-weight: 800;
     margin-bottom: 5px;
+<<<<<<< HEAD
 }
 .form-group input,
 .form-group select,
@@ -439,4 +682,6 @@ main {
 
 #memo {
     height: 90px;
+=======
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 }

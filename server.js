@@ -8,7 +8,11 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+<<<<<<< HEAD
 const PORT = 3000;
+=======
+const PORT = process.env.PORT || 3000;
+>>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 
 const EVENTS_FILE = path.join(__dirname, "events.json");
 const PROJECTS_FILE = path.join(__dirname, "projects.json");
