@@ -1,0 +1,442 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Malgun Gothic", Arial, sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+.top-header {
+    height: 86px;
+    background: #f4f6f8;
+    display: grid;
+    grid-template-columns: 240px 1fr 320px;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 0 24px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    max-width: 150px;
+    max-height: 58px;
+    object-fit: contain;
+}
+
+.top-header h1 {
+    text-align: center;
+    font-size: 34px;
+    margin: 0;
+    font-weight: 800;
+}
+
+.right-area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.toolbar {
+    height: 74px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding: 0 24px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+.toolbar-left {
+    text-align: left;
+}
+
+.toolbar-right {
+    text-align: right;
+}
+
+.current-title {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+button {
+    border: none;
+    padding: 11px 15px;
+    margin: 2px;
+    border-radius: 10px;
+    background: #e9edf2;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+button:hover {
+    background: #d9e0e8;
+}
+
+button.active {
+    background: #26384d;
+    color: white;
+}
+
+.add-btn,
+.project-btn {
+    background: #495057;
+    color: white;
+}
+
+.add-btn:hover {
+    background: #1d75d8;
+}
+
+.project-btn:hover {
+    background: #1d75d8;
+}
+
+main {
+    padding: 20px 24px;
+}
+
+.calendar {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.week-header,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.week-header div {
+    padding: 14px;
+    text-align: center;
+    background: #26384d;
+    color: white;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.day-cell {
+    min-height: 138px;
+    border-right: 1px solid #e1e4e8;
+    border-bottom: 1px solid #e1e4e8;
+    padding: 8px;
+    background: #fff;
+    position: relative;
+    overflow-y: auto;
+}
+
+.week-mode .day-cell {
+    min-height: 520px;
+}
+
+.day-cell:nth-child(7n) {
+    border-right: none;
+}
+
+.day-number {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.other-month {
+    background: #f7f8fa;
+    color: #aaa;
+}
+
+.today {
+    outline: 4px solid #495057;
+    outline-offset: -4px;
+}
+
+.event-item {
+    padding: 7px 8px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    line-height: 1.25;
+}
+
+.event-title-line {
+    font-weight: 800;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-task-line {
+    font-size: 13px;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.planned-bg { background: #7b8794; }
+.progress-bg { background: #1d75d8; }
+.done-bg { background: #2e9d55; }
+.delay-bg { background: #d93025; }
+.notice-bg { background: #f59f00; }
+.family-bg { background: #d63384; }
+
+.legend {
+    height: 52px;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 0 28px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.dot.planned { background: #7b8794; }
+.dot.progress { background: #1d75d8; }
+.dot.done { background: #2e9d55; }
+.dot.delay { background: #d93025; }
+.dot.notice { background: #f59f00; }
+.dot.family { background: #d63384; }
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+.modal-box h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal-box label {
+    display: block;
+    font-weight: 800;
+    margin-top: 12px;
+    margin-bottom: 5px;
+}
+
+
+.modal-box input,
+.modal-box select,
+.modal-box textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+
+    font-family: "Malgun Gothic", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+
+    background: white;
+    color: #222;
+}
+
+.modal-box textarea {
+    height: 80px;
+    resize: none;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+#saveEventBtn,
+#saveProjectBtn,
+.delete-btn {
+    background: #495057;
+    color: white;
+}
+
+#saveEventBtn:hover,
+#saveProjectBtn:hover {
+    background: #1d75d8;
+}
+
+.delete-btn:hover {
+    background: #d93025;
+}
+
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.project-header h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.project-table-wrap {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.project-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.project-table thead {
+    background: #26384d;
+    color: white;
+}
+
+.project-table th {
+    padding: 16px 10px;
+    font-size: 15px;
+    background: #26384d;
+    color: white;
+}
+
+.project-table td {
+    padding: 14px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    font-size: 14px;
+}
+
+.project-table tbody tr:hover {
+    background: #f7f9fc;
+}
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable:hover {
+    background: #1d2c3f;
+}
+
+.table-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+    background: #495057;
+    color: white;
+}
+
+.edit-btn {
+    background: #b5b7ba;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #495057;
+}
+
+.remove-btn {
+    background: #b5b7ba;
+    color: white;
+}
+
+.remove-btn:hover {
+    background: #495057;
+}
+
+.sunday {
+    color: #d93025;
+}
+
+.saturday {
+    color: #1d75d8;
+}
+
+.holiday-name {
+    font-size: 11px;
+    font-weight: 800;
+    color: #d93025;
+    margin-top: -4px;
+    margin-bottom: 4px;
+}
+
+.form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    font-family: "Malgun Gothic", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+}
+#eventModal .modal-box {
+    width: 760px;
+}
+
+#memo {
+    height: 90px;
+}
