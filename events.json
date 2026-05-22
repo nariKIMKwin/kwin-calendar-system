@@ -1,0 +1,46 @@
+[
+  {
+    "id": "1779418011951",
+    "eventType": "etc",
+    "projectId": "",
+    "taskName": "가공업체 조사",
+    "manager": "김나리",
+    "startDate": "2026-05-21",
+    "endDate": "2026-05-22",
+    "status": "progress",
+    "memo": ""
+  },
+  {
+    "id": "1779418054005",
+    "eventType": "project",
+    "projectId": "1779420155670",
+    "taskName": "설계 완료 및 도면 출도",
+    "manager": "박규용",
+    "startDate": "2026-05-26",
+    "endDate": "2026-05-26",
+    "status": "planned",
+    "memo": ""
+  },
+  {
+    "id": "1779418152276",
+    "eventType": "project",
+    "projectId": "1779420207450",
+    "taskName": "가공업체 견적 문의",
+    "manager": "김나리",
+    "startDate": "2026-05-22",
+    "endDate": "2026-05-22",
+    "status": "progress",
+    "memo": ""
+  },
+  {
+    "id": "1779431781805",
+    "eventType": "project",
+    "projectId": "1779420207450",
+    "taskName": "설계 및 도면 출도",
+    "manager": "박규용",
+    "startDate": "2026-05-21",
+    "endDate": "2026-05-21",
+    "status": "done",
+    "memo": "신규 가공업체 가공품 견적의뢰중"
+  }
+]
