@@ -8,11 +8,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-<<<<<<< HEAD
 const PORT = 3000;
-=======
-const PORT = process.env.PORT || 3000;
->>>>>>> c564f161fd31fddf20205b4a7ceb99468cef00b9
 
 const EVENTS_FILE = path.join(__dirname, "events.json");
 const PROJECTS_FILE = path.join(__dirname, "projects.json");
@@ -92,6 +88,5 @@ io.on("connection", (socket) => {
 });
 
 server.listen(PORT, () => {
-    console.log("KWIN 협업 일정 현황판 실행 중");
-    console.log(`http://localhost:${PORT}`);
+    console.log(`Server running on ${PORT}`);
 });
