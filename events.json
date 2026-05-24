@@ -42,5 +42,49 @@
     "endDate": "2026-05-21",
     "status": "done",
     "memo": "신규 가공업체 가공품 견적의뢰중"
+  },
+  {
+    "eventType": "project",
+    "projectId": "1779420155670",
+    "taskName": "가공품, 구매품 발주",
+    "manager": "이유빈",
+    "startDate": "2026-05-26",
+    "endDate": "2026-05-27",
+    "status": "planned",
+    "memo": "박규용 과장 완료 후 진행",
+    "id": "1779613596342"
+  },
+  {
+    "eventType": "project",
+    "projectId": "1779420155670",
+    "taskName": "신규 가공 업체(한일기계) 견적 문의",
+    "manager": "김나리",
+    "startDate": "2026-05-26",
+    "endDate": "2026-05-26",
+    "status": "planned",
+    "memo": "견적 확인 후 진행 여부 판단",
+    "id": "1779613652437"
+  },
+  {
+    "id": "1779613682135",
+    "eventType": "project",
+    "projectId": "1779418945499",
+    "taskName": "오토티칭 개발",
+    "manager": "김나리",
+    "startDate": "2026-05-26",
+    "endDate": "2026-05-28",
+    "status": "planned",
+    "memo": ""
+  },
+  {
+    "eventType": "project",
+    "projectId": "1779418906088",
+    "taskName": "설계 완료 및 도면 출도",
+    "manager": "박규용",
+    "startDate": "2026-05-27",
+    "endDate": "2026-05-29",
+    "status": "planned",
+    "memo": "",
+    "id": "1779613886317"
   }
 ]

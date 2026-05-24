@@ -9,11 +9,12 @@ body {
     color: #222;
 }
 
+/* HEADER */
 .top-header {
     height: 86px;
     background: #f4f6f8;
     display: grid;
-    grid-template-columns: 240px 1fr 320px;
+    grid-template-columns: 240px 1fr 520px;
     align-items: center;
     border-bottom: 1px solid #ddd;
     padding: 0 24px;
@@ -44,6 +45,17 @@ body {
     gap: 8px;
 }
 
+.theme-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.theme-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+}
+
+/* TOOLBAR */
 .toolbar {
     height: 74px;
     display: grid;
@@ -54,13 +66,8 @@ body {
     border-bottom: 1px solid #ddd;
 }
 
-.toolbar-left {
-    text-align: left;
-}
-
-.toolbar-right {
-    text-align: right;
-}
+.toolbar-left { text-align: left; }
+.toolbar-right { text-align: right; }
 
 .current-title {
     text-align: center;
@@ -68,6 +75,7 @@ body {
     font-weight: 800;
 }
 
+/* BUTTON */
 button {
     border: none;
     padding: 11px 15px;
@@ -94,10 +102,7 @@ button.active {
     color: white;
 }
 
-.add-btn:hover {
-    background: #1d75d8;
-}
-
+.add-btn:hover,
 .project-btn:hover {
     background: #1d75d8;
 }
@@ -106,7 +111,9 @@ main {
     padding: 20px 24px;
 }
 
-.calendar {
+/* CALENDAR */
+.calendar,
+#calendar {
     background: white;
     border-radius: 16px;
     overflow: hidden;
@@ -162,7 +169,19 @@ main {
     outline-offset: -4px;
 }
 
+/* EVENT */
+.event-area {
+    margin-top: 2px;
+}
+
+.event-placeholder {
+    height: 43px;
+    margin-bottom: 5px;
+    visibility: hidden;
+}
+
 .event-item {
+    min-height: 43px;
     padding: 7px 8px;
     border-radius: 8px;
     margin-bottom: 5px;
@@ -195,6 +214,7 @@ main {
 .notice-bg { background: #f59f00; }
 .family-bg { background: #d63384; }
 
+/* LEGEND */
 .legend {
     height: 52px;
     background: white;
@@ -223,6 +243,7 @@ main {
 .dot.notice { background: #f59f00; }
 .dot.family { background: #d63384; }
 
+/* MODAL */
 .modal {
     display: none;
     position: fixed;
@@ -247,6 +268,10 @@ main {
     box-shadow: 0 8px 24px rgba(0,0,0,0.25);
 }
 
+#eventModal .modal-box {
+    width: 760px;
+}
+
 .modal-box h2 {
     margin-top: 0;
     text-align: center;
@@ -259,7 +284,6 @@ main {
     margin-bottom: 5px;
 }
 
-
 .modal-box input,
 .modal-box select,
 .modal-box textarea {
@@ -267,11 +291,9 @@ main {
     padding: 11px;
     border: 1px solid #ccc;
     border-radius: 8px;
-
     font-family: "Malgun Gothic", Arial, sans-serif;
     font-size: 14px;
     font-weight: 600;
-
     background: white;
     color: #222;
 }
@@ -304,6 +326,7 @@ main {
     background: #d93025;
 }
 
+/* PROJECT */
 .project-header {
     display: flex;
     justify-content: space-between;
@@ -328,7 +351,8 @@ main {
     border-collapse: collapse;
 }
 
-.project-table thead {
+.project-table thead,
+.project-table th {
     background: #26384d;
     color: white;
 }
@@ -336,8 +360,6 @@ main {
 .project-table th {
     padding: 16px 10px;
     font-size: 15px;
-    background: #26384d;
-    color: white;
 }
 
 .project-table td {
@@ -368,24 +390,18 @@ main {
     color: white;
 }
 
-.edit-btn {
-    background: #b5b7ba;
-    color: white;
-}
-
-.edit-btn:hover {
-    background: #495057;
-}
-
+.edit-btn,
 .remove-btn {
     background: #b5b7ba;
     color: white;
 }
 
+.edit-btn:hover,
 .remove-btn:hover {
     background: #495057;
 }
 
+/* HOLIDAY */
 .sunday {
     color: #d93025;
 }
@@ -402,6 +418,7 @@ main {
     margin-bottom: 4px;
 }
 
+/* FORM */
 .form-row {
     display: flex;
     gap: 12px;
@@ -425,18 +442,288 @@ main {
     font-weight: 800;
     margin-bottom: 5px;
 }
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    font-family: "Malgun Gothic", Arial, sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-}
-#eventModal .modal-box {
-    width: 760px;
-}
 
 #memo {
     height: 90px;
+}
+
+/* ============================= */
+/* THEME 1: DARK NAVY */
+/* ============================= */
+body.theme-navy {
+    background: #0f1724;
+    color: #f1f3f5;
+}
+
+body.theme-navy .top-header {
+    background: linear-gradient(90deg, #0b1320, #152238);
+    border-bottom: 1px solid #24344f;
+}
+
+body.theme-navy .toolbar,
+body.theme-navy .calendar,
+body.theme-navy #calendar,
+body.theme-navy .project-table-wrap,
+body.theme-navy .modal-box {
+    background: #162033;
+    color: #f1f3f5;
+    border-color: #24344f;
+}
+
+body.theme-navy .week-header div,
+body.theme-navy .project-table thead,
+body.theme-navy .project-table th,
+body.theme-navy .legend {
+    background: #0b1320;
+    color: #f8f9fa;
+}
+
+body.theme-navy .day-cell,
+body.theme-navy .project-table td {
+    background: #162033;
+    border-color: #24344f;
+    color: #f1f3f5;
+}
+
+body.theme-navy .other-month {
+    background: #111927;
+    color: #607089;
+}
+
+body.theme-navy .today {
+    outline: none;
+    border: 3px solid #1d75d8;
+    background: transparent;
+}
+
+body.theme-navy button {
+    background: #273449;
+    color: #f1f3f5;
+}
+
+body.theme-navy button:hover,
+body.theme-navy button.active,
+body.theme-navy .add-btn:hover,
+body.theme-navy .project-btn:hover {
+    background: #495057;
+}
+
+body.theme-navy .modal-box input,
+body.theme-navy .modal-box select,
+body.theme-navy .modal-box textarea {
+    background: #0f1724;
+    border-color: #324766;
+    color: #f1f3f5;
+}
+
+/* ============================= */
+/* THEME 2: DARK CHARCOAL */
+/* ============================= */
+body.theme-charcoal {
+    background: #111417;
+    color: #f1f3f5;
+}
+
+body.theme-charcoal .top-header {
+    background: linear-gradient(90deg, #15181c, #20252b);
+    border-bottom: 1px solid #343a40;
+}
+
+body.theme-charcoal .toolbar,
+body.theme-charcoal .calendar,
+body.theme-charcoal #calendar,
+body.theme-charcoal .project-table-wrap,
+body.theme-charcoal .modal-box {
+    background: #1b1f24;
+    color: #f1f3f5;
+    border-color: #343a40;
+}
+
+body.theme-charcoal .week-header div,
+body.theme-charcoal .project-table thead,
+body.theme-charcoal .project-table th,
+body.theme-charcoal .legend {
+    background: #111417;
+    color: #f8f9fa;
+}
+
+body.theme-charcoal .day-cell,
+body.theme-charcoal .project-table td {
+    background: #1b1f24;
+    border-color: #343a40;
+    color: #f1f3f5;
+}
+
+body.theme-charcoal .other-month {
+    background: #161a1f;
+    color: #6c757d;
+}
+
+body.theme-charcoal .today {
+    outline: none;
+    border: 3px solid #495057;
+    background: transparent;
+}
+
+body.theme-charcoal button.active,
+body.theme-charcoal .add-btn {
+    background: #495057;
+    color: #ffffff;
+}
+
+body.theme-charcoal button:hover,
+body.theme-charcoal .project-btn:hover {
+    background: #856404;
+    color: white;
+}
+
+body.theme-charcoal .modal-box input,
+body.theme-charcoal .modal-box select,
+body.theme-charcoal .modal-box textarea {
+    background: #111417;
+    border-color: #495057;
+    color: #f1f3f5;
+}
+
+/* ============================= */
+/* THEME 3: DARK GRAY */
+/* ============================= */
+body.theme-gray {
+    background: #1b1d21;
+    color: #f1f3f5;
+}
+
+body.theme-gray .top-header {
+    background: linear-gradient(90deg, #1f2227, #2a2e34);
+    border-bottom: 1px solid #3d434c;
+}
+
+body.theme-gray .toolbar,
+body.theme-gray .calendar,
+body.theme-gray #calendar,
+body.theme-gray .project-table-wrap,
+body.theme-gray .modal-box {
+    background: #2a2e34;
+    color: #f1f3f5;
+    border-color: #3d434c;
+}
+
+body.theme-gray .week-header div,
+body.theme-gray .project-table thead,
+body.theme-gray .project-table th,
+body.theme-gray .legend {
+    background: #181b20;
+    color: white;
+}
+
+body.theme-gray .day-cell,
+body.theme-gray .project-table td {
+    background: #2a2e34;
+    border-color: #3d434c;
+    color: #f1f3f5;
+}
+
+body.theme-gray .other-month {
+    background: #23262b;
+    color: #6c757d;
+}
+
+body.theme-gray .today {
+    outline: none;
+    border: 3px solid #495057;
+    background: transparent;
+}
+
+body.theme-gray button.active,
+body.theme-gray .add-btn {
+    background: #495057;
+    color: white;
+}
+
+body.theme-gray button:hover,
+body.theme-gray .project-btn:hover {
+    background: #4f9f2f;
+    color: white;
+}
+
+body.theme-gray .modal-box input,
+body.theme-gray .modal-box select,
+body.theme-gray .modal-box textarea {
+    background: #1b1d21;
+    border-color: #4b5563;
+    color: white;
+}
+
+/* ============================= */
+/* THEME 4: DARK BLACK */
+/* ============================= */
+body.theme-black {
+    background: #050505;
+    color: #f8f9fa;
+}
+
+body.theme-black .top-header {
+    background: linear-gradient(90deg, #000000, #111111);
+    border-bottom: 1px solid #242424;
+}
+
+body.theme-black .toolbar,
+body.theme-black .calendar,
+body.theme-black #calendar,
+body.theme-black .project-table-wrap,
+body.theme-black .modal-box {
+    background: #0f0f0f;
+    color: #f8f9fa;
+    border-color: #242424;
+}
+
+body.theme-black .week-header div,
+body.theme-black .project-table thead,
+body.theme-black .project-table th,
+body.theme-black .legend {
+    background: #000000;
+    color: white;
+}
+
+body.theme-black .day-cell,
+body.theme-black .project-table td {
+    background: #0f0f0f;
+    border-color: #242424;
+    color: #f8f9fa;
+}
+
+body.theme-black .other-month {
+    background: #080808;
+    color: #555;
+}
+
+body.theme-black .today {
+    outline: none;
+    border: 3px solid #495057;
+    background: transparent;
+}
+
+body.theme-black button {
+    background: #181818;
+    border: 1px solid #2c2c2c;
+    color: white;
+}
+
+body.theme-black button.active,
+body.theme-black .add-btn,
+body.theme-black .project-btn:hover {
+    background: #495057;
+    color: white;
+}
+
+body.theme-black button:hover {
+    background: #242424;
+}
+
+body.theme-black .modal-box input,
+body.theme-black .modal-box select,
+body.theme-black .modal-box textarea {
+    background: #050505;
+    border-color: #2c2c2c;
+    color: white;
 }
