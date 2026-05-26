@@ -4,7 +4,7 @@
 
 body {
     margin: 0;
-    font-family: "Malgun Gothic", Arial, sans-serif;
+    font-family: "Pretendard", sans-serif;
     background: #f4f6f8;
     color: #222;
 }
@@ -705,7 +705,6 @@ body.theme-black .today {
 
 body.theme-black button {
     background: #181818;
-    border: 1px solid #2c2c2c;
     color: white;
 }
 
