@@ -89,6 +89,15 @@ const projectView = document.getElementById("projectView");
 const projectTableBody = document.getElementById("projectTableBody");
 const addProjectBtn = document.getElementById("addProjectBtn");
 
+const projectScheduleView = document.getElementById("projectScheduleView");
+const scheduleProjectTitle = document.getElementById("scheduleProjectTitle");
+const scheduleProjectInfo = document.getElementById("scheduleProjectInfo");
+const projectScheduleTableBody = document.getElementById("projectScheduleTableBody");
+const backToProjectBtn = document.getElementById("backToProjectBtn");
+const addProjectScheduleBtn = document.getElementById("addProjectScheduleBtn");
+
+let currentScheduleProjectId = "";
+
 const projectModal = document.getElementById("projectModal");
 const projectModalTitle = document.getElementById("projectModalTitle");
 const projectId = document.getElementById("projectId");
@@ -156,7 +165,9 @@ socket.on("initData", (data) => {
     events = data.events || [];
     projects = data.projects || [];
 
-    if (projectView && projectView.style.display === "block") {
+    if (projectScheduleView && projectScheduleView.style.display === "block") {
+        renderProjectScheduleTable();
+    } else if (projectView && projectView.style.display === "block") {
         renderProjectTable();
     } else {
         renderCalendar();
@@ -171,6 +182,8 @@ function showCalendarView(mode) {
 
     calendar.style.display = "block";
     if (projectView) projectView.style.display = "none";
+    if (projectScheduleView) projectScheduleView.style.display = "none";
+    currentScheduleProjectId = "";
 
     if (mode === "month") {
         monthBtn.classList.add("active");
@@ -187,6 +200,8 @@ function showCalendarView(mode) {
 function showProjectView() {
     calendar.style.display = "none";
     if (projectView) projectView.style.display = "block";
+    if (projectScheduleView) projectScheduleView.style.display = "none";
+    currentScheduleProjectId = "";
 
     monthBtn.classList.remove("active");
     weekBtn.classList.remove("active");
@@ -205,6 +220,7 @@ projectManageBtn.onclick = () => showProjectView();
 
 prevBtn.onclick = () => {
     if (projectView && projectView.style.display === "block") return;
+    if (projectScheduleView && projectScheduleView.style.display === "block") return;
 
     if (viewMode === "month") {
         currentDate.setMonth(currentDate.getMonth() - 1);
@@ -217,6 +233,7 @@ prevBtn.onclick = () => {
 
 nextBtn.onclick = () => {
     if (projectView && projectView.style.display === "block") return;
+    if (projectScheduleView && projectScheduleView.style.display === "block") return;
 
     if (viewMode === "month") {
         currentDate.setMonth(currentDate.getMonth() + 1);
@@ -236,6 +253,17 @@ addBtn.onclick = () => openEventModal();
 
 if (addProjectBtn) {
     addProjectBtn.onclick = () => openProjectModal();
+}
+
+if (backToProjectBtn) {
+    backToProjectBtn.onclick = () => showProjectView();
+}
+
+if (addProjectScheduleBtn) {
+    addProjectScheduleBtn.onclick = () => {
+        if (!currentScheduleProjectId) return;
+        openEventModal(null, "", currentScheduleProjectId);
+    };
 }
 
 document.addEventListener("click", (e) => {
@@ -614,10 +642,15 @@ function renderProjectTable() {
             <td>${escapeHtml(project.projectManager || "")}</td>
             <td>${escapeHtml(project.managerPhone || "")}</td>
             <td>
+                <button class="table-btn schedule-btn">일정 관리</button>
                 <button class="table-btn edit-btn">수정</button>
                 <button class="table-btn remove-btn">삭제</button>
             </td>
         `;
+
+        tr.querySelector(".schedule-btn").onclick = () => {
+            openProjectScheduleView(project.id);
+        };
 
         tr.querySelector(".edit-btn").onclick = () => {
             openProjectModal(project);
@@ -630,6 +663,94 @@ function renderProjectTable() {
         };
 
         projectTableBody.appendChild(tr);
+    });
+}
+
+
+// =========================
+// 프로젝트별 일정 관리
+// =========================
+function openProjectScheduleView(projectId) {
+    currentScheduleProjectId = projectId;
+
+    calendar.style.display = "none";
+    if (projectView) projectView.style.display = "none";
+    if (projectScheduleView) projectScheduleView.style.display = "block";
+
+    monthBtn.classList.remove("active");
+    weekBtn.classList.remove("active");
+    projectManageBtn.classList.add("active");
+
+    renderProjectScheduleTable();
+}
+
+function renderProjectScheduleTable() {
+    if (!projectScheduleTableBody || !currentScheduleProjectId) return;
+
+    const project = projects.find(p => p.id === currentScheduleProjectId);
+
+    if (!project) {
+        scheduleProjectTitle.textContent = "프로젝트 일정 관리";
+        scheduleProjectInfo.textContent = "프로젝트 정보를 찾을 수 없습니다.";
+        projectScheduleTableBody.innerHTML = `
+            <tr>
+                <td colspan="6">프로젝트 정보를 찾을 수 없습니다.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    currentTitle.textContent = "프로젝트 일정 관리";
+    scheduleProjectTitle.textContent = `[${project.projectNo}] ${project.projectTitle}`;
+    scheduleProjectInfo.textContent = `${project.companyName || "업체명 없음"} / 납기일: ${project.dueDate || "미정"}`;
+
+    const projectEvents = events
+        .filter(e => e.eventType === "project" && e.projectId === currentScheduleProjectId)
+        .sort((a, b) => {
+            if ((a.startDate || "") !== (b.startDate || "")) {
+                return (a.startDate || "").localeCompare(b.startDate || "");
+            }
+            return (a.endDate || "").localeCompare(b.endDate || "");
+        });
+
+    if (projectEvents.length === 0) {
+        projectScheduleTableBody.innerHTML = `
+            <tr>
+                <td colspan="6">등록된 세부 일정이 없습니다.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    projectScheduleTableBody.innerHTML = "";
+
+    projectEvents.forEach(event => {
+        const tr = document.createElement("tr");
+        const statusName = getStatusName(event.status);
+
+        tr.innerHTML = `
+            <td>${escapeHtml(formatShortDate(event.startDate))} ~ ${escapeHtml(formatShortDate(event.endDate))}</td>
+            <td class="schedule-task-cell">${escapeHtml(event.taskName || "")}</td>
+            <td>${escapeHtml(event.manager || "")}</td>
+            <td><span class="status-badge ${escapeHtml(event.status || "planned")}-badge">${escapeHtml(statusName)}</span></td>
+            <td class="schedule-memo-cell">${escapeHtml(event.memo || "")}</td>
+            <td>
+                <button class="table-btn edit-schedule-btn">수정</button>
+                <button class="table-btn remove-schedule-btn">삭제</button>
+            </td>
+        `;
+
+        tr.querySelector(".edit-schedule-btn").onclick = () => {
+            openEventModal(event);
+        };
+
+        tr.querySelector(".remove-schedule-btn").onclick = () => {
+            if (confirm("이 세부 일정을 삭제할까요?")) {
+                socket.emit("deleteEvent", event.id);
+            }
+        };
+
+        projectScheduleTableBody.appendChild(tr);
     });
 }
 
@@ -707,7 +828,7 @@ function closeProjectModal() {
     projectModal.classList.remove("show");
 }
 
-function openEventModal(event = null, selectedDate = "") {
+function openEventModal(event = null, selectedDate = "", defaultProjectId = "") {
     eventModal.classList.add("show");
     fillProjectSelect();
 
@@ -727,7 +848,7 @@ function openEventModal(event = null, selectedDate = "") {
         eventModalTitle.textContent = "일정 추가";
         eventId.value = "";
         eventType.value = "project";
-        selectedProject.value = "";
+        selectedProject.value = defaultProjectId || "";
         taskName.value = "";
         manager.value = "";
         startDate.value = selectedDate || formatDate(new Date());
@@ -797,6 +918,24 @@ function formatDateKorean(dateObj) {
 function isToday(dateObj) {
     const today = new Date();
     return formatDate(today) === formatDate(dateObj);
+}
+
+function getStatusName(status) {
+    if (status === "planned") return "예정";
+    if (status === "progress") return "진행중";
+    if (status === "done") return "완료";
+    if (status === "delay") return "지연";
+    if (status === "hold") return "보류";
+    return "예정";
+}
+
+function formatShortDate(dateText) {
+    if (!dateText) return "";
+
+    const parts = dateText.split("-");
+    if (parts.length !== 3) return dateText;
+
+    return `${Number(parts[1])}/${Number(parts[2])}`;
 }
 
 function getProjectNumber(projectNo) {

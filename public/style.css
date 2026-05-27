@@ -729,3 +729,70 @@ body.theme-black .modal-box textarea {
 
 .hold-bg { background: #bdbdbd; }
 .dot.hold { background: #bdbdbd; }
+/* PROJECT SCHEDULE DETAIL */
+.schedule-header {
+    gap: 16px;
+}
+
+.schedule-project-info {
+    margin-top: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #666;
+}
+
+.schedule-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.schedule-table-wrap {
+    margin-top: 14px;
+}
+
+.schedule-table th:nth-child(1) { width: 170px; }
+.schedule-table th:nth-child(2) { width: 30%; }
+.schedule-table th:nth-child(3) { width: 120px; }
+.schedule-table th:nth-child(4) { width: 110px; }
+.schedule-table th:nth-child(6) { width: 170px; }
+
+.schedule-task-cell,
+.schedule-memo-cell {
+    text-align: left !important;
+    line-height: 1.45;
+}
+
+.schedule-btn {
+    background: #1d75d8;
+    color: white;
+}
+
+.schedule-btn:hover {
+    background: #155fae;
+}
+
+.status-badge {
+    display: inline-block;
+    min-width: 58px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.planned-badge { background: #7b8794; }
+.progress-badge { background: #1d75d8; }
+.done-badge { background: #2e9d55; }
+.delay-badge { background: #d93025; }
+.hold-badge { background: #bdbdbd; color: #222; }
+.notice-badge { background: #f59f00; }
+.family-badge { background: #d63384; }
+
+body.theme-navy .schedule-project-info,
+body.theme-charcoal .schedule-project-info,
+body.theme-gray .schedule-project-info,
+body.theme-black .schedule-project-info {
+    color: #d7d7d7;
+}

@@ -17,7 +17,7 @@
             <img src="logo.png" class="logo">
         </div>
 
-        <h1>KWIN 협업 일정 현황판</h1>
+        <h1>케이윈 협업 일정 현황판</h1>
 
         <div class="right-area">
 
@@ -119,6 +119,46 @@
             </div>
 
         </div>
+
+        <div id="projectScheduleView" style="display:none;">
+
+            <div class="project-header schedule-header">
+
+                <div>
+                    <h2 id="scheduleProjectTitle">프로젝트 일정 관리</h2>
+                    <div id="scheduleProjectInfo" class="schedule-project-info"></div>
+                </div>
+
+                <div class="schedule-actions">
+                    <button id="backToProjectBtn">← 프로젝트 목록</button>
+                    <button id="addProjectScheduleBtn" class="add-btn">+ 세부 일정 추가</button>
+                </div>
+
+            </div>
+
+            <div class="project-table-wrap schedule-table-wrap">
+
+                <table class="project-table schedule-table">
+
+                    <thead>
+                        <tr>
+                            <th>시작일 ~ 종료일</th>
+                            <th>업무 내용</th>
+                            <th>담당자</th>
+                            <th>상태</th>
+                            <th>메모</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="projectScheduleTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
 
     </main>
 
