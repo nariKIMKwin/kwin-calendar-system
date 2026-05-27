@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>케이윈 협업 일정 현황판</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-white">
+
+    <header class="top-header">
+
+        <div class="logo-area">
+            <img src="logo.png" class="logo">
+        </div>
+
+        <h1>케이윈 협업 일정 현황판</h1>
+
+        <div class="right-area">
+
+            <div class="theme-buttons">
+                <button class="theme-btn" data-theme="white">화이트</button>
+                <button class="theme-btn" data-theme="navy">네이비</button>
+                <button class="theme-btn" data-theme="charcoal">차콜</button>
+                <button class="theme-btn" data-theme="gray">그레이</button>
+                <button class="theme-btn" data-theme="black">블랙</button>
+            </div>
+
+            <button id="projectManageBtn" class="project-btn">
+                프로젝트 관리
+            </button>
+
+            <button id="addBtn" class="add-btn">
+                + 일정 추가
+            </button>
+
+        </div>
+
+    </header>
+
+    <div class="toolbar">
+
+        <div class="toolbar-left">
+            <button id="prevBtn"><</button>
+            <button id="todayBtn">오늘</button>
+            <button id="nextBtn">></button>
+        </div>
+
+        <div class="current-title" id="currentTitle">
+            2026년 5월
+        </div>
+
+        <div class="toolbar-right">
+            <button id="monthBtn" class="active">월간 보기</button>
+            <button id="weekBtn">주간 보기</button>
+        </div>
+
+    </div>
+
+    <main>
+
+        <div id="calendar"></div>
+
+        <div id="projectView" style="display:none;">
+
+            <div class="project-header">
+
+                <h2>프로젝트 관리</h2>
+
+                <button id="addProjectBtn" class="add-btn">
+                    + 프로젝트 추가
+                </button>
+
+            </div>
+
+            <div class="project-table-wrap">
+
+                <table class="project-table">
+
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-sort="projectNo">
+                                프로젝트 번호
+                            </th>
+
+                            <th>
+                                프로젝트명
+                            </th>
+
+                            <th class="sortable" data-sort="company">
+                                업체명
+                            </th>
+
+                            <th class="sortable" data-sort="dueDate">
+                                납기일
+                            </th>
+
+                            <th>
+                                업체 담당자
+                            </th>
+
+                            <th>
+                                연락처
+                            </th>
+
+                            <th>
+                                일정 관리
+                            </th>
+
+                            <th>
+                                관리
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="projectTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div id="projectScheduleView" style="display:none;">
+
+            <div class="project-header schedule-header">
+
+                <div>
+                    <h2 id="scheduleProjectTitle">프로젝트 일정 관리</h2>
+                    <div id="scheduleProjectInfo" class="schedule-project-info"></div>
+                </div>
+
+                <div class="schedule-actions">
+                    <button id="backToProjectBtn">← 프로젝트 목록</button>
+                    <button id="addProjectScheduleBtn" class="add-btn">+ 세부 일정 추가</button>
+                </div>
+
+            </div>
+
+            <div class="project-table-wrap schedule-table-wrap">
+
+                <table class="project-table schedule-table">
+
+                    <thead>
+                        <tr>
+                            <th>시작일 ~ 종료일</th>
+                            <th>업무 내용</th>
+                            <th>담당자</th>
+                            <th>상태</th>
+                            <th>메모</th>
+                            <th>관리</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="projectScheduleTableBody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+    <footer class="legend">
+
+        <span>
+            <span class="dot planned"></span>
+            예정
+        </span>
+
+        <span>
+            <span class="dot progress"></span>
+            진행중
+        </span>
+
+        <span>
+            <span class="dot done"></span>
+            완료
+        </span>
+
+        <span>
+            <span class="dot delay"></span>
+            지연
+        </span>
+	<span>
+    		<span class="dot hold"></span>
+    		보류
+	</span>
+        <span>
+            <span class="dot notice"></span>
+            공지사항
+        </span>
+
+        <span>
+            <span class="dot family"></span>
+            경조사
+        </span>
+
+    </footer>
+
+    <!-- 일정 모달 -->
+    <div class="modal" id="eventModal">
+
+        <div class="modal-box">
+
+            <h2 id="eventModalTitle">일정 추가</h2>
+
+            <input type="hidden" id="eventId">
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>일정 구분</label>
+
+                    <select id="eventType">
+                        <option value="project">프로젝트</option>
+                        <option value="etc">기타 업무</option>
+                        <option value="notice">공지사항</option>
+                        <option value="family">경조사</option>
+                    </select>
+
+                </div>
+
+                <div class="form-group" id="projectSelectArea">
+
+                    <label>프로젝트 선택</label>
+
+                    <select id="selectedProject"></select>
+
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group flex-2">
+
+                    <label>업무 내용</label>
+
+                    <input type="text" id="taskName">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>담당자</label>
+
+                    <input type="text" id="manager">
+
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label>시작일</label>
+
+                    <input type="date" id="startDate">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>종료일</label>
+
+                    <input type="date" id="endDate">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>상태</label>
+
+                    <select id="status">
+                        <option value="planned">예정</option>
+                        <option value="progress">진행중</option>
+                        <option value="done">완료</option>
+                        <option value="delay">지연</option>
+			<option value="hold">보류</option>
+                    </select>
+
+                </div>
+
+            </div>
+
+            <div class="form-row">
+
+                <div class="form-group full-width">
+
+                    <label>메모</label>
+
+                    <textarea id="memo"></textarea>
+
+                </div>
+
+            </div>
+
+            <div class="modal-buttons">
+
+                <button id="saveEventBtn">
+                    저장
+                </button>
+
+                <button id="deleteEventBtn" class="delete-btn">
+                    삭제
+                </button>
+
+                <button id="closeEventBtn">
+                    닫기
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- 프로젝트 모달 -->
+    <div class="modal" id="projectModal">
+
+        <div class="modal-box">
+
+            <h2 id="projectModalTitle">
+                프로젝트 추가
+            </h2>
+
+            <input type="hidden" id="projectId">
+
+            <label>프로젝트 번호</label>
+            <input type="text" id="projectNo">
+
+            <label>프로젝트명</label>
+            <input type="text" id="projectName">
+
+            <label>업체명</label>
+            <input type="text" id="companyName">
+
+            <label>납기일</label>
+            <input type="date" id="dueDate">
+
+            <label>업체 담당자</label>
+            <input type="text" id="projectManager">
+
+            <label>연락처</label>
+            <input type="text" id="projectPhone">
+
+            <div class="modal-buttons">
+
+                <button id="saveProjectBtn">
+                    저장
+                </button>
+
+                <button id="deleteProjectBtn" class="delete-btn">
+                    삭제
+                </button>
+
+                <button id="closeProjectBtn">
+                    닫기
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+
+</body>
+</html>

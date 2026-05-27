@@ -1,0 +1,809 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Pretendard", sans-serif;
+    background: #f4f6f8;
+    color: #222;
+}
+
+/* HEADER */
+.top-header {
+    height: 86px;
+    background: #f4f6f8;
+    display: grid;
+    grid-template-columns: 240px 1fr 520px;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 0 24px;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    max-width: 150px;
+    max-height: 58px;
+    object-fit: contain;
+}
+
+.top-header h1 {
+    text-align: center;
+    font-size: 34px;
+    margin: 0;
+    font-weight: 800;
+}
+
+.right-area {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+}
+
+.theme-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.theme-btn {
+    padding: 8px 10px;
+    font-size: 12px;
+}
+
+/* TOOLBAR */
+.toolbar {
+    height: 74px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding: 0 24px;
+    background: #ffffff;
+    border-bottom: 1px solid #ddd;
+}
+
+.toolbar-left { text-align: left; }
+.toolbar-right { text-align: right; }
+
+.current-title {
+    text-align: center;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+/* BUTTON */
+button {
+    border: none;
+    padding: 11px 15px;
+    margin: 2px;
+    border-radius: 10px;
+    background: #e9edf2;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+button:hover {
+    background: #d9e0e8;
+}
+
+button.active {
+    background: #26384d;
+    color: white;
+}
+
+.add-btn,
+.project-btn {
+    background: #495057;
+    color: white;
+}
+
+.add-btn:hover,
+.project-btn:hover {
+    background: #1d75d8;
+}
+
+main {
+    padding: 20px 24px;
+}
+
+/* CALENDAR */
+.calendar,
+#calendar {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.week-header,
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.week-header div {
+    padding: 14px;
+    text-align: center;
+    background: #26384d;
+    color: white;
+    font-size: 18px;
+    font-weight: 800;
+}
+
+.day-cell {
+    min-height: 138px;
+    border-right: 1px solid #e1e4e8;
+    border-bottom: 1px solid #e1e4e8;
+    padding: 8px;
+    background: #fff;
+    position: relative;
+    overflow-y: auto;
+}
+
+.week-mode .day-cell {
+    min-height: 520px;
+}
+
+.day-cell:nth-child(7n) {
+    border-right: none;
+}
+
+.day-number {
+    font-size: 17px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.other-month {
+    background: #f7f8fa;
+    color: #aaa;
+}
+
+.today {
+    outline: 4px solid #495057;
+    outline-offset: -4px;
+}
+
+/* EVENT */
+.event-area {
+    margin-top: 2px;
+}
+
+.event-placeholder {
+    height: 43px;
+    margin-bottom: 5px;
+    visibility: hidden;
+}
+
+.event-item {
+    min-height: 43px;
+    padding: 7px 8px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    color: white;
+    font-size: 13px;
+    cursor: pointer;
+    line-height: 1.25;
+}
+
+.event-title-line {
+    font-weight: 800;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.event-task-line {
+    font-size: 13px;
+    margin-top: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.planned-bg { background: #7b8794; }
+.progress-bg { background: #1d75d8; }
+.done-bg { background: #2e9d55; }
+.delay-bg { background: #d93025; }
+.notice-bg { background: #f59f00; }
+.family-bg { background: #d63384; }
+
+/* LEGEND */
+.legend {
+    height: 52px;
+    background: white;
+    border-top: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    padding: 0 28px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 4px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
+
+.dot.planned { background: #7b8794; }
+.dot.progress { background: #1d75d8; }
+.dot.done { background: #2e9d55; }
+.dot.delay { background: #d93025; }
+.dot.notice { background: #f59f00; }
+.dot.family { background: #d63384; }
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-box {
+    width: 480px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: white;
+    border-radius: 18px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+}
+
+#eventModal .modal-box {
+    width: 760px;
+}
+
+.modal-box h2 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.modal-box label {
+    display: block;
+    font-weight: 800;
+    margin-top: 12px;
+    margin-bottom: 5px;
+}
+
+.modal-box input,
+.modal-box select,
+.modal-box textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: "Malgun Gothic", Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: white;
+    color: #222;
+}
+
+.modal-box textarea {
+    height: 80px;
+    resize: none;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
+    margin-top: 20px;
+}
+
+#saveEventBtn,
+#saveProjectBtn,
+.delete-btn {
+    background: #495057;
+    color: white;
+}
+
+#saveEventBtn:hover,
+#saveProjectBtn:hover {
+    background: #1d75d8;
+}
+
+.delete-btn:hover {
+    background: #d93025;
+}
+
+/* PROJECT */
+.project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.project-header h2 {
+    margin: 0;
+    font-size: 30px;
+}
+
+.project-table-wrap {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.project-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.project-table thead,
+.project-table th {
+    background: #26384d;
+    color: white;
+}
+
+.project-table th {
+    padding: 16px 10px;
+    font-size: 15px;
+}
+
+.project-table td {
+    padding: 14px 10px;
+    border-bottom: 1px solid #e5e5e5;
+    text-align: center;
+    font-size: 14px;
+}
+
+.project-table tbody tr:hover {
+    background: #f7f9fc;
+}
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+}
+
+.sortable:hover {
+    background: #1d2c3f;
+}
+
+.table-btn {
+    padding: 8px 12px;
+    font-size: 13px;
+    border-radius: 8px;
+    background: #495057;
+    color: white;
+}
+
+.edit-btn,
+.remove-btn {
+    background: #b5b7ba;
+    color: white;
+}
+
+.edit-btn:hover,
+.remove-btn:hover {
+    background: #495057;
+}
+
+/* HOLIDAY */
+.sunday {
+    color: #d93025;
+}
+
+.saturday {
+    color: #1d75d8;
+}
+
+.holiday-name {
+    font-size: 11px;
+    font-weight: 800;
+    color: #d93025;
+    margin-top: -4px;
+    margin-bottom: 4px;
+}
+
+/* FORM */
+.form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.form-group {
+    flex: 1;
+}
+
+.flex-2 {
+    flex: 2;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+#memo {
+    height: 90px;
+}
+
+/* ============================= */
+/* THEME 1: DARK NAVY */
+/* ============================= */
+body.theme-navy {
+    background: #0f1724;
+    color: #f1f3f5;
+}
+
+body.theme-navy .top-header {
+    background: linear-gradient(90deg, #0b1320, #152238);
+    border-bottom: 1px solid #24344f;
+}
+
+body.theme-navy .toolbar,
+body.theme-navy .calendar,
+body.theme-navy #calendar,
+body.theme-navy .project-table-wrap,
+body.theme-navy .modal-box {
+    background: #162033;
+    color: #f1f3f5;
+    border-color: #24344f;
+}
+
+body.theme-navy .week-header div,
+body.theme-navy .project-table thead,
+body.theme-navy .project-table th,
+body.theme-navy .legend {
+    background: #0b1320;
+    color: #f8f9fa;
+}
+
+body.theme-navy .day-cell,
+body.theme-navy .project-table td {
+    background: #162033;
+    border-color: #24344f;
+    color: #f1f3f5;
+}
+
+body.theme-navy .other-month {
+    background: #111927;
+    color: #607089;
+}
+
+body.theme-navy .today {
+    outline: none;
+    border: 3px solid #1d75d8;
+    background: transparent;
+}
+
+body.theme-navy button {
+    background: #273449;
+    color: #f1f3f5;
+}
+
+body.theme-navy button:hover,
+body.theme-navy button.active,
+body.theme-navy .add-btn:hover,
+body.theme-navy .project-btn:hover {
+    background: #495057;
+}
+
+body.theme-navy .modal-box input,
+body.theme-navy .modal-box select,
+body.theme-navy .modal-box textarea {
+    background: #0f1724;
+    border-color: #324766;
+    color: #f1f3f5;
+}
+
+/* ============================= */
+/* THEME 2: DARK CHARCOAL */
+/* ============================= */
+body.theme-charcoal {
+    background: #111417;
+    color: #f1f3f5;
+}
+
+body.theme-charcoal .top-header {
+    background: linear-gradient(90deg, #15181c, #20252b);
+    border-bottom: 1px solid #343a40;
+}
+
+body.theme-charcoal .toolbar,
+body.theme-charcoal .calendar,
+body.theme-charcoal #calendar,
+body.theme-charcoal .project-table-wrap,
+body.theme-charcoal .modal-box {
+    background: #1b1f24;
+    color: #f1f3f5;
+    border-color: #343a40;
+}
+
+body.theme-charcoal .week-header div,
+body.theme-charcoal .project-table thead,
+body.theme-charcoal .project-table th,
+body.theme-charcoal .legend {
+    background: #111417;
+    color: #f8f9fa;
+}
+
+body.theme-charcoal .day-cell,
+body.theme-charcoal .project-table td {
+    background: #1b1f24;
+    border-color: #343a40;
+    color: #f1f3f5;
+}
+
+body.theme-charcoal .other-month {
+    background: #161a1f;
+    color: #6c757d;
+}
+
+body.theme-charcoal .today {
+    outline: none;
+    border: 3px solid #495057;
+    background: transparent;
+}
+
+body.theme-charcoal button.active,
+body.theme-charcoal .add-btn {
+    background: #495057;
+    color: #ffffff;
+}
+
+body.theme-charcoal button:hover,
+body.theme-charcoal .project-btn:hover {
+    background: #856404;
+    color: white;
+}
+
+body.theme-charcoal .modal-box input,
+body.theme-charcoal .modal-box select,
+body.theme-charcoal .modal-box textarea {
+    background: #111417;
+    border-color: #495057;
+    color: #f1f3f5;
+}
+
+/* ============================= */
+/* THEME 3: DARK GRAY */
+/* ============================= */
+body.theme-gray {
+    background: #1b1d21;
+    color: #f1f3f5;
+}
+
+body.theme-gray .top-header {
+    background: linear-gradient(90deg, #1f2227, #2a2e34);
+    border-bottom: 1px solid #3d434c;
+}
+
+body.theme-gray .toolbar,
+body.theme-gray .calendar,
+body.theme-gray #calendar,
+body.theme-gray .project-table-wrap,
+body.theme-gray .modal-box {
+    background: #2a2e34;
+    color: #f1f3f5;
+    border-color: #3d434c;
+}
+
+body.theme-gray .week-header div,
+body.theme-gray .project-table thead,
+body.theme-gray .project-table th,
+body.theme-gray .legend {
+    background: #181b20;
+    color: white;
+}
+
+body.theme-gray .day-cell,
+body.theme-gray .project-table td {
+    background: #2a2e34;
+    border-color: #3d434c;
+    color: #f1f3f5;
+}
+
+body.theme-gray .other-month {
+    background: #23262b;
+    color: #6c757d;
+}
+
+body.theme-gray .today {
+    outline: none;
+    border: 3px solid #495057;
+    background: transparent;
+}
+
+body.theme-gray button.active,
+body.theme-gray .add-btn {
+    background: #495057;
+    color: white;
+}
+
+body.theme-gray button:hover,
+body.theme-gray .project-btn:hover {
+    background: #4f9f2f;
+    color: white;
+}
+
+body.theme-gray .modal-box input,
+body.theme-gray .modal-box select,
+body.theme-gray .modal-box textarea {
+    background: #1b1d21;
+    border-color: #4b5563;
+    color: white;
+}
+
+/* ============================= */
+/* THEME 4: DARK BLACK */
+/* ============================= */
+body.theme-black {
+    background: #050505;
+    color: #f8f9fa;
+}
+
+body.theme-black .top-header {
+    background: linear-gradient(90deg, #000000, #111111);
+    border-bottom: 1px solid #242424;
+}
+
+body.theme-black .toolbar,
+body.theme-black .calendar,
+body.theme-black #calendar,
+body.theme-black .project-table-wrap,
+body.theme-black .modal-box {
+    background: #0f0f0f;
+    color: #f8f9fa;
+    border-color: #242424;
+}
+
+body.theme-black .week-header div,
+body.theme-black .project-table thead,
+body.theme-black .project-table th,
+body.theme-black .legend {
+    background: #000000;
+    color: white;
+}
+
+body.theme-black .day-cell,
+body.theme-black .project-table td {
+    background: #0f0f0f;
+    border-color: #242424;
+    color: #f8f9fa;
+}
+
+body.theme-black .other-month {
+    background: #080808;
+    color: #555;
+}
+
+body.theme-black .today {
+    outline: none;
+    border: 3px solid #495057;
+    background: transparent;
+}
+
+body.theme-black button {
+    background: #181818;
+    color: white;
+}
+
+body.theme-black button.active,
+body.theme-black .add-btn,
+body.theme-black .project-btn:hover {
+    background: #495057;
+    color: white;
+}
+
+body.theme-black button:hover {
+    background: #242424;
+}
+
+body.theme-black .modal-box input,
+body.theme-black .modal-box select,
+body.theme-black .modal-box textarea {
+    background: #050505;
+    border-color: #2c2c2c;
+    color: white;
+}
+
+.hold-bg { background: #bdbdbd; }
+.dot.hold { background: #bdbdbd; }
+/* PROJECT SCHEDULE DETAIL */
+.schedule-header {
+    gap: 16px;
+}
+
+.schedule-project-info {
+    margin-top: 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #666;
+}
+
+.schedule-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.schedule-table-wrap {
+    margin-top: 14px;
+}
+
+.schedule-table th:nth-child(1) { width: 170px; }
+.schedule-table th:nth-child(2) { width: 30%; }
+.schedule-table th:nth-child(3) { width: 120px; }
+.schedule-table th:nth-child(4) { width: 110px; }
+.schedule-table th:nth-child(6) { width: 170px; }
+
+.schedule-task-cell,
+.schedule-memo-cell {
+    text-align: left !important;
+    line-height: 1.45;
+}
+
+.schedule-btn {
+    background: #1d75d8;
+    color: white;
+}
+
+.schedule-btn:hover {
+    background: #155fae;
+}
+
+.status-badge {
+    display: inline-block;
+    min-width: 58px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+}
+
+.planned-badge { background: #7b8794; }
+.progress-badge { background: #1d75d8; }
+.done-badge { background: #2e9d55; }
+.delay-badge { background: #d93025; }
+.hold-badge { background: #bdbdbd; color: #222; }
+.notice-badge { background: #f59f00; }
+.family-badge { background: #d63384; }
+
+body.theme-navy .schedule-project-info,
+body.theme-charcoal .schedule-project-info,
+body.theme-gray .schedule-project-info,
+body.theme-black .schedule-project-info {
+    color: #d7d7d7;
+}
+
+
+/* 프로젝트 일정 관리 테이블 */
+.schedule-table {
+    border-collapse: collapse;
+}
+
+.schedule-table th,
+.schedule-table td {
+    border: 1px solid #d8dee6;
+}
