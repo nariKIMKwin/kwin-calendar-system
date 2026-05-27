@@ -726,3 +726,6 @@ body.theme-black .modal-box textarea {
     border-color: #2c2c2c;
     color: white;
 }
+
+.hold-bg { background: #6f42c1; }
+.dot.hold { background: #6f42c1; }
