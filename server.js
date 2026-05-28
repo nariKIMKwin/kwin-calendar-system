@@ -11,6 +11,9 @@ const io = new Server(server);
 
 const PORT = process.env.PORT || 3000;
 
+const LOGIN_ID = process.env.LOGIN_ID || "kwin";
+const LOGIN_PASSWORD = process.env.LOGIN_PASSWORD || "위기를기회로";
+
 if (!process.env.DATABASE_URL) {
     console.error("DATABASE_URL 환경변수가 없습니다.");
     process.exit(1);
@@ -23,12 +26,10 @@ const pool = new Pool({
     }
 });
 
-
-
-app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
+
 app.use(session({
-    secret: "kwin-secret-key",
+    secret: process.env.SESSION_SECRET || "kwin-secret-key",
     resave: false,
     saveUninitialized: false,
     cookie: {
@@ -38,57 +39,44 @@ app.use(session({
 }));
 
 app.use((req, res, next) => {
-
     const openPaths = [
         "/login.html",
         "/login",
+        "/login.js",
         "/style.css",
-        "/login.js"
+        "/logo.png"
     ];
 
     if (openPaths.includes(req.path)) {
         return next();
     }
 
-	if (req.session && req.session.isLogin) {
+    if (req.session && req.session.isLogin) {
         return next();
     }
 
     return res.redirect("/login.html");
-
 });
 
+app.use(express.static(path.join(__dirname, "public")));
 
 app.post("/login", (req, res) => {
-
     const { id, password } = req.body;
 
     if (id === LOGIN_ID && password === LOGIN_PASSWORD) {
-
         req.session.isLogin = true;
-
-        return res.json({
-            success: true
-        });
+        return res.json({ success: true });
     }
 
-    res.json({
-        success: false
-    });
-
+    return res.json({ success: false });
 });
 
 app.post("/logout", (req, res) => {
-
     req.session.destroy(() => {
-
-        res.json({
-            success: true
-        });
-
+        res.json({ success: true });
     });
-
 });
+
 async function initDb() {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS projects (
@@ -159,10 +147,7 @@ async function getAllData() {
     const projects = await getProjects();
     const events = await getEvents();
 
-    return {
-        events,
-        projects
-    };
+    return { events, projects };
 }
 
 async function emitAll() {
@@ -307,6 +292,3 @@ initDb().then(() => {
         console.log(`Server running on ${PORT}`);
     });
 });
-
-const LOGIN_ID = process.env.LOGIN_ID || "kwin";
-const LOGIN_PASSWORD = process.env.LOGIN_PASSWORD || "위기를기회로";
