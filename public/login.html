@@ -2,27 +2,74 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>KWIN 로그인</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>케이윈 로그인</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
 
-<div class="login-wrap">
+<body class="login-page">
 
-    <div class="login-box">
+    <div class="login-container">
 
-        <h1>KWIN</h1>
+        <div class="login-left">
 
-        <input type="text" id="loginId" placeholder="아이디">
-        <input type="password" id="loginPassword" placeholder="비밀번호">
+            <img src="logo.png" class="login-logo">
 
-        <button id="loginBtn">로그인</button>
+            <h1>KWIN</h1>
+
+            <p>협업 일정 관리 시스템</p>
+
+        </div>
+
+        <div class="login-right">
+
+            <div class="login-form-box">
+
+                <h2>LOGIN</h2>
+
+                <p class="login-subtitle">
+                    계정 정보를 입력해주세요
+                </p>
+
+                <label>아이디</label>
+
+                <input
+                    type="text"
+                    id="loginId"
+                    placeholder="아이디 입력"
+                >
+
+                <label>비밀번호</label>
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="비밀번호 입력"
+                >
+
+                <label class="remember-row">
+
+                    <input
+                        type="checkbox"
+                        id="rememberMe"
+                    >
+
+                    로그인 유지
+
+                </label>
+
+                <button id="loginBtn">
+                    로그인
+                </button>
+
+            </div>
+
+        </div>
 
     </div>
 
-</div>
-
-<script src="login.js"></script>
+    <script src="login.js"></script>
 
 </body>
 </html>
