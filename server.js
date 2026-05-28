@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const http = require("http");
 const path = require("path");
 const { Server } = require("socket.io");
@@ -22,9 +23,69 @@ const pool = new Pool({
     }
 });
 
+app.use((req, res, next) => {
+
+    const openPaths = [
+        "/login.html",
+        "/login",
+        "/style.css",
+        "/login.js"
+    ];
+
+    if (openPaths.includes(req.path)) {
+        return next();
+    }
+
+    if (req.session.isLogin) {
+        return next();
+    }
+
+    return res.redirect("/login.html");
+
+});
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
+app.use(session({
+    secret: "kwin-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}));
 
+app.post("/login", (req, res) => {
+
+    const { id, password } = req.body;
+
+    if (id === LOGIN_ID && password === LOGIN_PASSWORD) {
+
+        req.session.isLogin = true;
+
+        return res.json({
+            success: true
+        });
+    }
+
+    res.json({
+        success: false
+    });
+
+});
+
+app.post("/logout", (req, res) => {
+
+    req.session.destroy(() => {
+
+        res.json({
+            success: true
+        });
+
+    });
+
+});
 async function initDb() {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS projects (
@@ -243,3 +304,6 @@ initDb().then(() => {
         console.log(`Server running on ${PORT}`);
     });
 });
+
+const LOGIN_ID = process.env.LOGIN_ID || "kwin";
+const LOGIN_PASSWORD = process.env.LOGIN_PASSWORD || "위기를기회로";
