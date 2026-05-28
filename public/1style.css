@@ -232,6 +232,7 @@ main {
     border-radius: 999px;
 }
 
+
 /* LEGEND */
 .legend {
     height: 52px;
@@ -253,7 +254,6 @@ main {
     margin-right: 6px;
     vertical-align: middle;
 }
-
 .dot.planned { background: #7b8794; }
 .dot.progress { background: #1d75d8; }
 .dot.done { background: #2e9d55; }
@@ -262,21 +262,6 @@ main {
 .dot.notice { background: #e65100; }
 .dot.family { background: #8B5CF6; }
 
-.dot.cancel {
-    background: #7b8794;
-    position: relative;
-}
-
-.dot.cancel::after {
-    content: "";
-    position: absolute;
-    left: -2px;
-    right: -2px;
-    top: 50%;
-    height: 2px;
-    background: white;
-    transform: translateY(-50%);
-}
 
 /* MODAL */
 .modal {
@@ -762,7 +747,8 @@ body.theme-black .modal-box textarea {
     color: white;
 }
 
-
+.hold-bg { background: #bdbdbd; }
+.dot.hold { background: #bdbdbd; }
 /* PROJECT SCHEDULE DETAIL */
 .schedule-header {
     gap: 16px;
@@ -820,25 +806,9 @@ body.theme-black .modal-box textarea {
 .progress-badge { background: #1d75d8; }
 .done-badge { background: #2e9d55; }
 .delay-badge { background: #d93025; }
-
-.hold-badge {
-    background: #f4c400;
-    color: #222;
-}
-
-.notice-badge {
-    background: #e65100;
-}
-
-.family-badge {
-    background: #8B5CF6;
-}
-
-.cancel-badge {
-    background: #7b8794;
-    color: white;
-    text-decoration: line-through;
-}
+.hold-badge { background: #bdbdbd; color: #222; }
+.notice-badge { background: #f59f00; }
+.family-badge { background: #d63384; }
 
 body.theme-navy .schedule-project-info,
 body.theme-charcoal .schedule-project-info,

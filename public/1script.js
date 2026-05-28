@@ -811,7 +811,6 @@ function getEventTypeName(type) {
 function getEventColorClass(event) {
     if (event.eventType === "notice") return "notice-bg";
     if (event.eventType === "family") return "family-bg";
-    if (event.status === "cancel") return "cancel-bg";
     return `${event.status}-bg`;
 }
 
