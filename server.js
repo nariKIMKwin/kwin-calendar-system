@@ -23,6 +23,20 @@ const pool = new Pool({
     }
 });
 
+
+
+app.use(express.static(path.join(__dirname, "public")));
+app.use(express.json());
+app.use(session({
+    secret: "kwin-secret-key",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        secure: false,
+        maxAge: 1000 * 60 * 60 * 24
+    }
+}));
+
 app.use((req, res, next) => {
 
     const openPaths = [
@@ -36,7 +50,7 @@ app.use((req, res, next) => {
         return next();
     }
 
-    if (req.session.isLogin) {
+	if (req.session && req.session.isLogin) {
         return next();
     }
 
@@ -44,17 +58,6 @@ app.use((req, res, next) => {
 
 });
 
-app.use(express.static(path.join(__dirname, "public")));
-app.use(express.json());
-app.use(session({
-    secret: "kwin-secret-key",
-    resave: false,
-    saveUninitialized: false,
-    cookie: {
-        secure: false,
-        maxAge: 1000 * 60 * 60 * 24
-    }
-}));
 
 app.post("/login", (req, res) => {
 
