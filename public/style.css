@@ -216,8 +216,15 @@ main {
 .family-bg { background: #8B5CF6; }
 
 .cancel-bg {
-    background: #7b8794;
-    position: relative;
+    background: transparent;
+    border: 2px solid #7b8794;
+    color: #7b8794;
+}
+
+.cancel-bg .event-title-line,
+.cancel-bg .event-task-line {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
 }
 
 .cancel-bg::after {
@@ -263,10 +270,9 @@ main {
 .dot.family { background: #8B5CF6; }
 
 .dot.cancel {
-    background: #7b8794;
-    position: relative;
+    background: transparent;
+    border: 2px solid #7b8794;
 }
-
 .dot.cancel::after {
     content: "";
     position: absolute;
@@ -835,11 +841,11 @@ body.theme-black .modal-box textarea {
 }
 
 .cancel-badge {
-    background: #7b8794;
-    color: white;
+    background: transparent;
+    border: 2px solid #7b8794;
+    color: #7b8794;
     text-decoration: line-through;
 }
-
 body.theme-navy .schedule-project-info,
 body.theme-charcoal .schedule-project-info,
 body.theme-gray .schedule-project-info,
