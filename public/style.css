@@ -227,17 +227,6 @@ main {
     text-decoration-thickness: 2px;
 }
 
-.cancel-bg::after {
-    content: "";
-    position: absolute;
-    left: 10%;
-    right: 10%;
-    top: 50%;
-    height: 3px;
-    background: rgba(255,255,255,0.9);
-    transform: translateY(-50%);
-    border-radius: 999px;
-}
 
 /* LEGEND */
 .legend {
@@ -272,16 +261,6 @@ main {
 .dot.cancel {
     background: transparent;
     border: 2px solid #7b8794;
-}
-.dot.cancel::after {
-    content: "";
-    position: absolute;
-    left: -2px;
-    right: -2px;
-    top: 50%;
-    height: 2px;
-    background: white;
-    transform: translateY(-50%);
 }
 
 /* MODAL */
@@ -404,10 +383,12 @@ main {
 }
 
 .project-table td {
-    padding: 14px 10px;
     border-bottom: 1px solid #e5e5e5;
     text-align: center;
     font-size: 14px;
+    padding: 18px 10px;
+    height: 58px;
+    vertical-align: middle;
 }
 
 .project-table tbody tr:hover {
@@ -429,6 +410,16 @@ main {
     border-radius: 8px;
     background: #495057;
     color: white;
+    min-width: 58px;
+    height: 34px;
+    padding: 0 12px;
+    line-height: 34px;
+    font-size: 13px;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
 }
 
 .edit-btn,
