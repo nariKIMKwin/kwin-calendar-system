@@ -803,18 +803,18 @@ function getEventDisplayText(event) {
 
 function getEventTypeName(type) {
     if (type === "etc") return "기타 업무";
+    if (type === "national") return "국책사업";
+    if (type === "admin") return "행정";
     if (type === "notice") return "공지사항";
     if (type === "family") return "경조사";
     return "일정";
 }
-
 function getEventColorClass(event) {
     if (event.eventType === "notice") return "notice-bg";
     if (event.eventType === "family") return "family-bg";
     if (event.status === "cancel") return "cancel-bg";
     return `${event.status}-bg`;
 }
-
 // =========================
 // 모달
 // =========================
