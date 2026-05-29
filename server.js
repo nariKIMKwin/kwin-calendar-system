@@ -105,6 +105,10 @@ async function initDb() {
             created_at TIMESTAMP DEFAULT NOW()
         );
     `);
+await pool.query(`
+    ALTER TABLE events
+    ADD COLUMN IF NOT EXISTS confirm_users JSONB DEFAULT '[]'::jsonb;
+`);
 }
 
 async function getProjects() {
@@ -135,7 +139,8 @@ async function getEvents() {
             start_date AS "startDate",
             end_date AS "endDate",
             status,
-            memo
+            memo,
+            COALESCE(confirm_users, '[]'::jsonb) AS "confirmUsers"
         FROM events
         ORDER BY created_at ASC
     `);
@@ -222,23 +227,22 @@ io.on("connection", async (socket) => {
     socket.on("addEvent", async (event) => {
         try {
             const id = Date.now().toString();
-
-            await pool.query(`
-                INSERT INTO events
-                (id, event_type, project_id, task_name, manager, start_date, end_date, status, memo)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-            `, [
-                id,
-                event.eventType,
-                event.projectId || "",
-                event.taskName,
-                event.manager || "",
-                event.startDate,
-                event.endDate,
-                event.status || "planned",
-                event.memo || ""
-            ]);
-
+await pool.query(`
+    INSERT INTO events
+    (id, event_type, project_id, task_name, manager, start_date, end_date, status, memo, confirm_users)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10::jsonb)
+`, [
+    id,
+    event.eventType,
+    event.projectId || "",
+    event.taskName,
+    event.manager || "",
+    event.startDate,
+    event.endDate,
+    event.status || "planned",
+    event.memo || "",
+    JSON.stringify(event.confirmUsers || [])
+]);
             await emitAll();
         } catch (err) {
             console.error("addEvent error:", err);
@@ -247,29 +251,31 @@ io.on("connection", async (socket) => {
 
     socket.on("updateEvent", async (event) => {
         try {
-            await pool.query(`
-                UPDATE events
-                SET
-                    event_type = $1,
-                    project_id = $2,
-                    task_name = $3,
-                    manager = $4,
-                    start_date = $5,
-                    end_date = $6,
-                    status = $7,
-                    memo = $8
-                WHERE id = $9
-            `, [
-                event.eventType,
-                event.projectId || "",
-                event.taskName,
-                event.manager || "",
-                event.startDate,
-                event.endDate,
-                event.status || "planned",
-                event.memo || "",
-                event.id
-            ]);
+await pool.query(`
+    UPDATE events
+    SET
+        event_type = $1,
+        project_id = $2,
+        task_name = $3,
+        manager = $4,
+        start_date = $5,
+        end_date = $6,
+        status = $7,
+        memo = $8,
+        confirm_users = $9::jsonb
+    WHERE id = $10
+`, [
+    event.eventType,
+    event.projectId || "",
+    event.taskName,
+    event.manager || "",
+    event.startDate,
+    event.endDate,
+    event.status || "planned",
+    event.memo || "",
+    JSON.stringify(event.confirmUsers || []),
+    event.id
+]);
 
             await emitAll();
         } catch (err) {

@@ -125,6 +125,16 @@ const startDate = document.getElementById("startDate");
 const endDate = document.getElementById("endDate");
 const status = document.getElementById("status");
 const memo = document.getElementById("memo");
+const confirmUserSelectBox = document.getElementById("confirmUserSelectBox");
+const confirmStatusArea = document.getElementById("confirmStatusArea");
+const confirmStatusBox = document.getElementById("confirmStatusBox");
+
+const staffList = [
+    "김은하",
+    "이유빈",
+    "김나리",
+    "박규용"
+];
 
 const saveEventBtn = document.getElementById("saveEventBtn");
 const deleteEventBtn = document.getElementById("deleteEventBtn");
@@ -336,7 +346,8 @@ saveEventBtn.onclick = () => {
         startDate: startDate.value,
         endDate: endDate.value,
         status: status.value,
-        memo: memo.value.trim()
+memo: memo.value.trim(),
+confirmUsers: getSelectedConfirmUsers()
     };
 
     if (!data.taskName || !data.startDate || !data.endDate) {
@@ -571,9 +582,14 @@ function createEventItem(e) {
 
     const display = getEventDisplayText(e);
 
+    const confirmHtml = isConfirmRequired(e)
+        ? `<div class="confirm-needed">확인 필요</div>`
+        : "";
+
     item.innerHTML = `
         <div class="event-title-line">${escapeHtml(display.titleLine)}</div>
         <div class="event-task-line">${escapeHtml(display.taskLine)}</div>
+        ${confirmHtml}
     `;
 
     item.onclick = (event) => {
@@ -583,7 +599,6 @@ function createEventItem(e) {
 
     return item;
 }
-
 // =========================
 // 프로젝트 관리 테이블
 // =========================
@@ -879,6 +894,8 @@ function openEventModal(event = null, selectedDate = "", defaultProjectId = "") 
     }
 
     toggleProjectSelect();
+renderConfirmUserSelect(event);
+renderConfirmStatus(event);
 }
 
 function closeEventModal() {
@@ -976,4 +993,130 @@ function escapeHtml(text) {
         .replaceAll(">", "&gt;")
         .replaceAll('"', "&quot;")
         .replaceAll("'", "&#039;");
+}
+
+function renderConfirmUserSelect(event = null) {
+    if (!confirmUserSelectBox) return;
+
+    const confirmUsers = event && Array.isArray(event.confirmUsers)
+        ? event.confirmUsers
+        : [];
+
+    confirmUserSelectBox.innerHTML = "";
+
+    staffList.forEach(name => {
+        const saved = confirmUsers.find(user => user.name === name);
+        const checked = !!saved;
+
+        const label = document.createElement("label");
+        label.className = "confirm-user-check";
+
+        label.innerHTML = `
+            <input type="checkbox" value="${escapeHtml(name)}" ${checked ? "checked" : ""}>
+            <span>${escapeHtml(name)}</span>
+        `;
+
+        confirmUserSelectBox.appendChild(label);
+    });
+}
+
+function getSelectedConfirmUsers() {
+    if (!confirmUserSelectBox) return [];
+
+    const currentEvent = events.find(e => e.id === eventId.value);
+    const oldConfirmUsers = currentEvent && Array.isArray(currentEvent.confirmUsers)
+        ? currentEvent.confirmUsers
+        : [];
+
+    const checkedInputs = confirmUserSelectBox.querySelectorAll("input[type='checkbox']:checked");
+
+    return Array.from(checkedInputs).map(input => {
+        const name = input.value;
+        const oldUser = oldConfirmUsers.find(user => user.name === name);
+
+        return {
+            name,
+            checked: oldUser ? !!oldUser.checked : false,
+            checkedAt: oldUser ? oldUser.checkedAt || "" : ""
+        };
+    });
+}
+
+function renderConfirmStatus(event = null) {
+    if (!confirmStatusArea || !confirmStatusBox) return;
+
+    if (!event || !Array.isArray(event.confirmUsers) || event.confirmUsers.length === 0) {
+        confirmStatusArea.style.display = "none";
+        confirmStatusBox.innerHTML = "";
+        return;
+    }
+
+    confirmStatusArea.style.display = "flex";
+    confirmStatusBox.innerHTML = "";
+
+    event.confirmUsers.forEach(user => {
+        const row = document.createElement("div");
+        row.className = "confirm-status-row";
+
+        const statusText = user.checked
+            ? `확인완료 ${user.checkedAt ? `(${user.checkedAt})` : ""}`
+            : "미확인";
+
+        const buttonHtml = user.checked
+            ? `<span class="confirm-done-text">완료</span>`
+            : `<button type="button" class="confirm-check-btn" data-name="${escapeHtml(user.name)}">확인</button>`;
+
+        row.innerHTML = `
+            <span class="confirm-name">${escapeHtml(user.name)}</span>
+            <span class="${user.checked ? "confirm-ok" : "confirm-wait"}">${escapeHtml(statusText)}</span>
+            ${buttonHtml}
+        `;
+
+        confirmStatusBox.appendChild(row);
+    });
+
+    confirmStatusBox.querySelectorAll(".confirm-check-btn").forEach(btn => {
+        btn.onclick = () => {
+            confirmEventUser(event.id, btn.dataset.name);
+        };
+    });
+}
+
+function confirmEventUser(eventIdValue, userName) {
+    const event = events.find(e => e.id === eventIdValue);
+    if (!event || !Array.isArray(event.confirmUsers)) return;
+
+    const updatedConfirmUsers = event.confirmUsers.map(user => {
+        if (user.name !== userName) return user;
+
+        return {
+            ...user,
+            checked: true,
+            checkedAt: getNowText()
+        };
+    });
+
+    socket.emit("updateEvent", {
+        ...event,
+        confirmUsers: updatedConfirmUsers
+    });
+}
+
+function isConfirmRequired(event) {
+    if (!event || !Array.isArray(event.confirmUsers)) return false;
+    if (event.confirmUsers.length === 0) return false;
+
+    return event.confirmUsers.some(user => !user.checked);
+}
+
+function getNowText() {
+    const now = new Date();
+
+    const y = now.getFullYear();
+    const m = String(now.getMonth() + 1).padStart(2, "0");
+    const d = String(now.getDate()).padStart(2, "0");
+    const h = String(now.getHours()).padStart(2, "0");
+    const min = String(now.getMinutes()).padStart(2, "0");
+
+    return `${y}-${m}-${d} ${h}:${min}`;
 }
